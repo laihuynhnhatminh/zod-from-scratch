@@ -1,5 +1,7 @@
 import z from "./schemas/index.js";
 
-z.string().parse(['string']);
+console.log("validating string array");
+z.array(z.string()).parse(["hello", "world"]);
 
-
+console.log("validating number array");
+z.array(z.number()).parse(["hello", "world"]);

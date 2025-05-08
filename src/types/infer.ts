@@ -1,7 +1,25 @@
-import { ZodString, ZodType, ZodUnkown } from './zod-types.js';
+import {
+  ZodArray,
+  ZodNumber,
+  ZodString,
+  ZodType,
+  ZodUnknown,
+} from './zod-types.js';
 
-export type Infer<Type extends ZodType> = Type extends ZodUnkown
+export type Infer<Type extends ZodType> = Type extends ZodUnknown
   ? unknown
   : Type extends ZodString
     ? string
-    : never;
+    : Type extends ZodNumber
+      ? number
+      : Type extends ZodArray<infer ElementType>
+        ? InferElementType<ElementType>[]
+        : never;
+
+export type InferElementType<ElementType> = ElementType extends ZodType
+  ? Infer<ElementType>
+  : never;
+
+export type InferObject<ObjectType extends Record<string, ZodType>> = {
+  [Key in keyof ObjectType]: Infer<ObjectType[Key]>;
+};

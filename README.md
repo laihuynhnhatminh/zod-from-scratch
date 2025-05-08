@@ -1,6 +1,6 @@
 # node-typescript-boilerplate
 
-Refer to here: https://github.com/tigerabrodi/Zod-from-scratch/tree/main for original repo. This is a repo for me to understand the code itself.
+Refer to here: https://github.com/tigerabrodi/Zod-from-scratch/tree/main for original repo. This is a repo for me to copy to understand the code itself.
 
 [![Sponsor][sponsor-badge]][sponsor]
 [![TypeScript version][ts-badge]][typescript-5-4]
