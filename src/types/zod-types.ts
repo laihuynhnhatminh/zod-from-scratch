@@ -1,12 +1,13 @@
-import { Infer, InferElementType } from './infer.js';
+import { Infer, InferElementType, InferZodObject } from './infer.js';
 
 export type ZodType =
   | ZodUnknown
   | ZodString
   | ZodNumber
-  | ZodArray<ZodType>
   | ZodNullable<ZodType>
-  | ZodOptional<ZodType>;
+  | ZodOptional<ZodType>
+  | ZodArray<ZodType>
+  | ZodObject<Record<string, ZodType>>;
 
 type OptionalOrNullable = 'optional' | 'nullable';
 
@@ -47,4 +48,12 @@ export interface ZodArray<Type extends ZodType> {
   parse(val: unknown): InferElementType<Type>[];
   optional(): Omit<ZodOptional<ZodArray<Type>>, OptionalOrNullable>;
   nullable(): Omit<ZodNullable<ZodArray<Type>>, OptionalOrNullable>;
+}
+
+export interface ZodObject<Type extends Record<string, ZodType>> {
+  type: 'object';
+  fields: Type;
+  parse(val: unknown): InferZodObject<ZodObject<Type>>;
+  optional(): Omit<ZodOptional<ZodObject<Type>>, OptionalOrNullable>;
+  nullable(): Omit<ZodNullable<ZodObject<Type>>, OptionalOrNullable>;
 }

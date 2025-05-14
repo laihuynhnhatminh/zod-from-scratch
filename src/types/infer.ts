@@ -1,6 +1,7 @@
 import {
   ZodArray,
   ZodNumber,
+  ZodObject,
   ZodString,
   ZodType,
   ZodUnknown,
@@ -14,7 +15,9 @@ export type Infer<Type extends ZodType> = Type extends ZodUnknown
       ? number
       : Type extends ZodArray<infer ElementType>
         ? InferElementType<ElementType>[]
-        : never;
+        : Type extends ZodObject<infer ObjectType>
+          ? InferObject<ObjectType>
+          : never;
 
 export type InferElementType<ElementType> = ElementType extends ZodType
   ? Infer<ElementType>
@@ -23,3 +26,6 @@ export type InferElementType<ElementType> = ElementType extends ZodType
 export type InferObject<ObjectType extends Record<string, ZodType>> = {
   [Key in keyof ObjectType]: Infer<ObjectType[Key]>;
 };
+
+export type InferZodObject<Type extends ZodObject<Record<string, ZodType>>> =
+  InferObject<Type['fields']>;
