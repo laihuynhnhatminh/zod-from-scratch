@@ -3,7 +3,7 @@ import z from '../schemas/index.js';
 
 describe('String Schema', () => {
   it('should validate a string', () => {
-    expect(z.string().parse('test')).toBe('test');
+    expect(z.string().parse('test-string')).toBe('test-string');
   });
 
   it('should throw an error for a non-string', () => {
@@ -12,7 +12,7 @@ describe('String Schema', () => {
 
   it('should handle optional strings', () => {
     expect(z.string().optional().parse(undefined)).toBeUndefined();
-    expect(z.string().optional().parse('test')).toBe('test');
+    expect(z.string().optional().parse('test-string')).toBe('test-string');
 
     expect(() => z.string().optional().parse(null)).toThrow(
       'Invalid value: expected a string',
@@ -24,6 +24,13 @@ describe('String Schema', () => {
     expect(() => z.string().nullable().parse(undefined)).toThrow(
       'Invalid value: expected a string',
     );
-    expect(z.string().nullable().parse('test')).toBe('test');
+    expect(z.string().nullable().parse('test-string')).toBe('test-string');
+  });
+
+  it('should handle URL strings', () => {
+    expect(z.string().url().parse('https://example.com')).toBe('https://example.com');
+    expect(() => z.string().url().parse('invalid-url')).toThrow(
+      'Invalid value: expected a valid URL',
+    );
   });
 });
