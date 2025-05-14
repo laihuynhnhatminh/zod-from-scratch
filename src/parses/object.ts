@@ -31,7 +31,7 @@ export function parseObject<Type extends Record<string, ZodType>>(
       throw new Error(`Invalid value: missing key ${key}`);
     }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
+    // @ts-ignore
     val.parse(objectValue[key]);
   });
 

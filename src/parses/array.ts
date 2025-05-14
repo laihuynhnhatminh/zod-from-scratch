@@ -10,7 +10,7 @@ export function parseArray<Type extends ZodType>(
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
+  // @ts-ignore
   value.forEach((v) => element.parse(v));
 
   return value;
