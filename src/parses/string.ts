@@ -21,3 +21,15 @@ export function parseNullableString(value: unknown): string | null {
 
   return parseString(value);
 }
+
+export function parseUrlString(value: unknown): string {
+  const parsedValue = parseString(value);
+
+  try {
+    new URL(parsedValue);
+  } catch (e) {
+    throw new Error('Invalid value: expected a valid URL');
+  }
+
+  return parsedValue;
+}
