@@ -19,5 +19,6 @@
     "noImplicitThis": false,
     "strictNullChecks": false
   },
-  "include": ["src/**/*", "vitest.config.ts"]
+  "include": ["src/**/*", "vitest.config.ts"],
+  "exclude": ["node_modules", "build", "dist", "coverage"]
 }
